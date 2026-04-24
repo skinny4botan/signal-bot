@@ -6,6 +6,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 BOT_TOKEN = "8711059649:AAF7ysdDRw3rbWo9INoHvekeSCwy49QYhWE"
 MINI_APP_URL = "https://quiet-otter-e7de5f.netlify.app"
 
+# ТВОЙ FILE_ID
 IMAGE_FILE_ID = "AgACAgIAAxkBAAMnaerfdcONzphkmIjPyJaB-a0ItJMAAmASaxtkGVhLsG0N-a1Fe3oBAAMCAAN5AAM7BA"
 
 bot = TeleBot(BOT_TOKEN)
@@ -24,6 +25,7 @@ def send_welcome(message):
     )
     keyboard.add(button)
     
+    # Отправляем картинку СРАЗУ, без проверок
     bot.send_photo(
         message.chat.id,
         photo=IMAGE_FILE_ID,
@@ -31,6 +33,7 @@ def send_welcome(message):
         reply_markup=keyboard
     )
 
+# Только админ может получать file_id
 @bot.message_handler(content_types=['photo'])
 def handle_photo(message):
     if message.from_user.id != ADMIN_ID:
@@ -45,6 +48,7 @@ def handle_photo(message):
         parse_mode="Markdown"
     )
 
+# Блокировка остальных медиа
 @bot.message_handler(content_types=['video', 'document', 'audio', 'voice', 'animation'])
 def block_media(message):
     if message.from_user.id != ADMIN_ID:
