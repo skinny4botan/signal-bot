@@ -1,7 +1,7 @@
 import os
 import logging
 from telebot import TeleBot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
 # ========== НАСТРОЙКИ ==========
 BOT_TOKEN = "8711059649:AAF7ysdDRw3rbWo9INoHvekeSCwy49QYhWE"
@@ -14,10 +14,13 @@ logging.basicConfig(level=logging.INFO)
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     keyboard = InlineKeyboardMarkup()
+    
+    # ВАЖНО: используем WebAppInfo, а не простой словарь
+    web_app = WebAppInfo(url=MINI_APP_URL)
     button = InlineKeyboardButton(
         text="🚀 Start",
-        web_app={"url": MINI_APP_URL},
-        style="success"  # ← РАБОТАЕТ В telebot
+        web_app=web_app,  # ← передаем объект WebAppInfo
+        style="success"
     )
     keyboard.add(button)
     
