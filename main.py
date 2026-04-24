@@ -3,13 +3,9 @@ import logging
 from telebot import TeleBot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
-
 BOT_TOKEN = "8711059649:AAF7ysdDRw3rbWo9INoHvekeSCwy49QYhWE"
 MINI_APP_URL = "https://quiet-otter-e7de5f.netlify.app"
-
-
-IMAGE_FILE_ID = "AgACAgIAAxkBAAIBGmnq26oNdhV7xq_aW97Iyb0TXxHBAAJgEmsbZBlYS0dqd_le3isFAQADAgADeQADOwQ"
-
+IMAGE_URL = "https://i.postimg.cc/T3D3QBkx/2026-04-24-07-00-13.jpg"
 
 bot = TeleBot(BOT_TOKEN)
 logging.basicConfig(level=logging.INFO)
@@ -25,13 +21,11 @@ def send_welcome(message):
     )
     keyboard.add(button)
     
-   
     bot.send_photo(
         message.chat.id,
-        photo=IMAGE_FILE_ID,  
+        photo=IMAGE_URL,
         caption="Welcome! Click the button below to open JAMPER SIGNAL:",
         reply_markup=keyboard
     )
 
-print("✅ Бот запущен!")
 bot.infinity_polling()
